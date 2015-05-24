@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Login</title>
+
+        <link href="css/bootstrap.min.css" rel="stylesheet" />
+        <link href="css/bootstrap-theme.min.css" rel="stylesheet" />
+        <link href="css/site.css" rel="stylesheet" />
+    </h:head>
+    <h:body>
+
+        <div class="page-wrapper">
+            <header class="intro-header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                            <div class="site-heading">
+                                <h1>SisEdu</h1>
+                                <hr class="small" />
+                                <p>Sistema de Gestão para escolas de idiomas e preparatórios</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+
+
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <div class="login-panel panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Efetue o login</h3>
+                            </div>
+                            <div class="panel-body">
+                                <h:form>
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <h:inputText class="form-control" id="usernameInput" value="#{usuarioBean.usuario.usernumber}" required="true" />
+
+                                        </div>
+                                        <div class="form-group">
+
+                                            <h:inputSecret id="passwordInput" class="form-control" value="#{usuarioBean.usuario.password}"  required="true" />
+
+                                        </div>
+
+                                        <h:commandButton value="Login" action="#{usuarioBean.Login}" class="btn btn-lg btn-success btn-block" />
+
+                                    </fieldset>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+            <!-- Footer -->
+            <footer>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">                        
+                            <p class="copyright text-muted">Jackson de Fraga - 2015</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <script src="js/jquery.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+    </h:body>
+</html>
+
