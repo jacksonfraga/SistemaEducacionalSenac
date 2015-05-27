@@ -5,6 +5,7 @@
  */
 package com.jacksonf.domain;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -16,9 +17,9 @@ import javax.persistence.Table;
  * @author 631210442
  */
 @Entity
-@Table(name="PROJECT")
+@Table(name="Alunos")
 @Inheritance(strategy=InheritanceType.JOINED)
-public class Aluno extends Pessoa{
+public class Aluno extends Pessoa implements Serializable{
     
     
     private int matricula;

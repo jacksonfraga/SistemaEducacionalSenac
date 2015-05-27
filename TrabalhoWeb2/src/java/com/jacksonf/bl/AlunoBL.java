@@ -18,7 +18,7 @@ public class AlunoBL implements CrudGenerico<Aluno>{
 
     private AlunoDAO alunoDAO;
 
-    public AlunoBL() {
+    public AlunoBL() throws Exception {
         alunoDAO = new AlunoDAO();
     }
     

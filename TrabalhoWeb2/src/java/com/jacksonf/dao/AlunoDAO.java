@@ -8,6 +8,7 @@ package com.jacksonf.dao;
 import com.jacksonf.domain.Aluno;
 import com.jacksonf.utils.CrudGenerico;
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -17,15 +18,22 @@ import javax.persistence.Query;
  *
  * @author Jackson
  */
-public class AlunoDAO implements CrudGenerico<Aluno>  {
+public class AlunoDAO implements CrudGenerico<Aluno> {
 
     private EntityManager em;
 
-    public AlunoDAO() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ImobMVCJPAPU");
-        em = emf.createEntityManager();
+    public AlunoDAO() throws Exception {
+        try {
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SisEduPU");
+
+            em = emf.createEntityManager();
+        } catch (Exception e) {
+            throw new Exception(String.format(">>>>>>>>>>>>> ERRO : %1$s", e.getMessage()));
+            
+        }
+
     }
-    
+
     @Override
     public void salvar(Aluno bean) {
         em.getTransaction().begin();
@@ -37,34 +45,34 @@ public class AlunoDAO implements CrudGenerico<Aluno>  {
     public void excluir(Aluno bean) {
         em.getTransaction().begin();
         //em.remove(em.find(Aluno.class, bean.getId()));
-        em.remove(getById(bean.getId()));        
+        em.remove(getById(bean.getId()));
         em.getTransaction().commit();
     }
 
     @Override
     public List<Aluno> listar(Aluno bean) {
         StringBuilder sb = new StringBuilder("select a from Aluno a where 1=1");
-        
-        if(bean.getId() != 0) {
-           sb.append("and a.id = :id");
+
+        if (bean.getId() != 0) {
+            sb.append("and a.id = :id");
         }
-        
-        if(bean.getNome() != null && !bean.getNome().isEmpty()) {
+
+        if (bean.getNome() != null && !bean.getNome().isEmpty()) {
             sb.append("and a.nome = :nome");
         }
-        
+
         sb.append("order by a.nome");
-        
+
         Query qry = em.createQuery(sb.toString());
-        
-        if(bean.getId() != 0) {
+
+        if (bean.getId() != 0) {
             qry.setParameter("id", bean.getId());
         }
-        
-        if(bean.getNome() != null && !bean.getNome().isEmpty()) {
+
+        if (bean.getNome() != null && !bean.getNome().isEmpty()) {
             qry.setParameter("nome", bean.getNome());
         }
-        
+
         return qry.getResultList();
     }
 
@@ -77,5 +85,5 @@ public class AlunoDAO implements CrudGenerico<Aluno>  {
     public Aluno getById(int id) {
         return em.find(Aluno.class, id);
     }
-    
+
 }
