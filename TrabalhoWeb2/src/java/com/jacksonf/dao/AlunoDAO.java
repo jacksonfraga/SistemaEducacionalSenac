@@ -36,7 +36,8 @@ public class AlunoDAO implements CrudGenerico<Aluno>  {
     @Override
     public void excluir(Aluno bean) {
         em.getTransaction().begin();
-        em.remove(em.find(Aluno.class, bean.getId()));
+        //em.remove(em.find(Aluno.class, bean.getId()));
+        em.remove(getById(bean.getId()));        
         em.getTransaction().commit();
     }
 
@@ -69,7 +70,12 @@ public class AlunoDAO implements CrudGenerico<Aluno>  {
 
     @Override
     public Aluno consultar(Aluno bean) {
-        return em.find(Aluno.class, bean.getId()); 
+        //return em.find(Aluno.class, bean.getId()); 
+        return getById(bean.getId());
+    }
+
+    public Aluno getById(int id) {
+        return em.find(Aluno.class, id);
     }
     
 }

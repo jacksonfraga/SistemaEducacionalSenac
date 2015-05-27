@@ -44,4 +44,9 @@ public class AlunoBL implements CrudGenerico<Aluno>{
         return alunoDAO.consultar(bean);
     }
     
+    public Aluno getById(int id) {
+        return alunoDAO.getById(id);
+    }
+    
+    
 }
