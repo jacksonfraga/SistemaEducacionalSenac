@@ -5,13 +5,43 @@
  */
 package com.jacksonf.bl;
 
+import com.jacksonf.dao.AlunoDAO;
 import com.jacksonf.domain.Aluno;
 import com.jacksonf.utils.CrudGenerico;
+import java.util.List;
 
 /**
  *
  * @author Jackson
  */
 public class AlunoBL implements CrudGenerico<Aluno>{
+
+    private AlunoDAO alunoDAO;
+
+    public AlunoBL() {
+        alunoDAO = new AlunoDAO();
+    }
+    
+    
+    
+    @Override
+    public void salvar(Aluno bean) {
+        alunoDAO.salvar(bean);
+    }
+
+    @Override
+    public void excluir(Aluno bean) {
+        alunoDAO.excluir(bean);
+    }
+
+    @Override
+    public List<Aluno> listar(Aluno bean) {
+        return alunoDAO.listar(bean);
+    }
+
+    @Override
+    public Aluno consultar(Aluno bean) {
+        return alunoDAO.consultar(bean);
+    }
     
 }
