@@ -29,7 +29,7 @@ public class AlunoDAO implements CrudGenerico<Aluno> {
             em = emf.createEntityManager();
         } catch (Exception e) {
             throw new Exception(String.format(">>>>>>>>>>>>> ERRO : %1$s", e.getMessage()));
-            
+
         }
 
     }
@@ -37,8 +37,13 @@ public class AlunoDAO implements CrudGenerico<Aluno> {
     @Override
     public void salvar(Aluno bean) {
         em.getTransaction().begin();
-        em.merge(bean);
-        em.getTransaction().commit();
+        try {
+            em.merge(bean);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw e;
+        }
     }
 
     @Override
@@ -54,14 +59,14 @@ public class AlunoDAO implements CrudGenerico<Aluno> {
         StringBuilder sb = new StringBuilder("select a from Aluno a where 1=1");
 
         if (bean.getId() != 0) {
-            sb.append("and a.id = :id");
+            sb.append("\r\nand a.id = :id");
         }
 
         if (bean.getNome() != null && !bean.getNome().isEmpty()) {
-            sb.append("and a.nome = :nome");
+            sb.append("\r\nand a.nome = :nome");
         }
 
-        sb.append("order by a.nome");
+        sb.append("\r\norder by a.nome");
 
         Query qry = em.createQuery(sb.toString());
 

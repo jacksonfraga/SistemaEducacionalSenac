@@ -7,6 +7,7 @@ package com.jacksonf.beans;
 
 import com.jacksonf.bl.AlunoBL;
 import com.jacksonf.domain.Aluno;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -21,10 +22,21 @@ public class AlunoBean {
     private Aluno aluno;
     private final AlunoBL alunoBL;
 
-    public AlunoBean() {
+    public AlunoBean() throws Exception {
         this.aluno = new Aluno();
         this.alunoBL = new AlunoBL();
     }
+    
+   
+    public List<Aluno> listaAluno() {        
+        try {
+            return alunoBL.listar(aluno);
+        } catch(Exception e) {
+            //Mensagem.error(e.getMessage());
+            throw e;
+        }        
+    }
+    
 
     public Aluno getAluno() {
         return aluno;
@@ -50,7 +62,8 @@ public class AlunoBean {
     }
 
     public String PostAluno() {
-        alunoBL.salvar(aluno);
+        alunoBL.salvar(aluno);    
+        aluno = new Aluno();
         return "alunos";
     }
 

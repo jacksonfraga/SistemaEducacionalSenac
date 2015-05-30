@@ -5,6 +5,7 @@
  */
 package com.jacksonf.domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -17,7 +18,7 @@ import javax.persistence.MappedSuperclass;
  * @author 631210442
  */
 @MappedSuperclass
-public class Pessoa {
+public class Pessoa implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

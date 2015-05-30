@@ -62,7 +62,7 @@
 
                         </div>
                         <div class="col-md-4 col-md-offset-4">
-                            <h:dataTable  value="#{alunoBean.listaAluno}" var="aluno">
+                            <h:dataTable  value="#{alunoBean.listaAluno()}" var="aluno">
 
                                 <h:column>
                                     <f:facet name="header">Aluno</f:facet>
@@ -71,7 +71,7 @@
                                 <h:column>
                                     <f:facet name="header"></f:facet>                                
                                     <h:commandLink action="#{alunoBean.EditarAluno(aluno.id)}" value="Editar" />
-                                    <h:commandLink action="#{alunoBean.ExcluirAluno(aluno.id)}" value="Excluir" />                                    
+                                    <h:commandLink action="#{alunoBean.ExcluirAluno(aluno.id)}" onclick="return confirm('Deseja excluir este registro?')" value="Excluir" />                                    
                                 </h:column>
                             </h:dataTable>
                         </div>
