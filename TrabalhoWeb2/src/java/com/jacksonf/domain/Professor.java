@@ -5,11 +5,20 @@
  */
 package com.jacksonf.domain;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+
 /**
  *
  * @author 631210442
  */
-public class Professor extends Pessoa{
+@Entity
+@Table(name="Professores")
+@Inheritance(strategy=InheritanceType.JOINED)
+public class Professor extends Pessoa implements Serializable{
     private Double salario;
 
     public Double getSalario() {

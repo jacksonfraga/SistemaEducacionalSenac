@@ -5,8 +5,9 @@
  */
 package com.jacksonf.beans;
 
+import com.jacksonf.bl.ProfessorBL;
 import com.jacksonf.domain.Professor;
-import java.util.ArrayList;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -19,29 +20,23 @@ import javax.faces.bean.SessionScoped;
 public class ProfessorBean {
 
     private Professor professor;
-    private ArrayList<Professor> listaProfessor;
-    
+    private final ProfessorBL professorBL;
 
-    public ArrayList<Professor> getListaProfessor() {
-        return listaProfessor;
-    }
-
-    public void setListaProfessor(ArrayList<Professor> listaProfessor) {
-        this.listaProfessor = listaProfessor;
-    }    
-    
-    public ProfessorBean() {
+    public ProfessorBean() throws Exception {
         this.professor = new Professor();
-        this.listaProfessor = new ArrayList<>();
-        
-        for (int i = 0; i < 10; i++) {
-            Professor tmp = new Professor();
-            tmp.setNome("Professor " + i);
-            tmp.setId(listaProfessor.size() + 1);
-            listaProfessor.add(tmp);
-            
-        }
+        this.professorBL = new ProfessorBL();
     }
+    
+   
+    public List<Professor> listaProfessor() {        
+        try {
+            return professorBL.listar(professor);
+        } catch(Exception e) {
+            //Mensagem.error(e.getMessage());
+            throw e;
+        }        
+    }
+    
 
     public Professor getProfessor() {
         return professor;
@@ -50,43 +45,26 @@ public class ProfessorBean {
     public void setProfessor(Professor professor) {
         this.professor = professor;
     }
-    
-    public String NovoProfessor()
-    {
+
+    public String NovoProfessor() {
         this.professor = new Professor();
         return "editProfessor";
     }
-    
-    public String EditarProfessor(int id)
-    {        
-        for (Professor item : listaProfessor) {
-            if (item.getId() == id) {
-                professor = item;
-                return "editProfessor";
-            }
-        }
-        return "editProfessor";        
+
+    public String EditarProfessor(int id) {
+        professor = professorBL.getById(id);
+        return "editProfessor";
     }
-    
-    public String ExcluirProfessor(int id)
-    {        
-        for (Professor item : listaProfessor) {
-            if (item.getId() == id) {
-                listaProfessor.remove(item);
-                return "professors";
-            }
-        }
-        return "professors";        
+
+    public String ExcluirProfessor(int id) {
+        professorBL.excluir(professorBL.getById(id));
+        return "professores";
     }
-    
-    public String PostProfessor()
-    {       
-        if (professor.getId() == 0)
-        {    
-            professor.setId(listaProfessor.size() + 1);
-            listaProfessor.add(professor);
-        }
-        return "professors";
+
+    public String PostProfessor() {
+        professorBL.salvar(professor);    
+        professor = new Professor();
+        return "professores";
     }
-    
+
 }
