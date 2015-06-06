@@ -26,6 +26,9 @@ public class ProfessorBL implements CrudGenerico<Professor>{
     
     @Override
     public void salvar(Professor bean) {
+        if (bean.getSalario() <= 0) {            
+            throw new IllegalArgumentException("Salário deve ser superior a zero");
+        }            
         alunoDAO.salvar(bean);
     }
 
